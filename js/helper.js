@@ -1,4 +1,8 @@
-import { findElementByClassName, querySlecetor } from "./constants";
+import {
+  findElementByClassName,
+  querySlecetor,
+  currentIndeValue,
+} from "./constants";
 
 const previousButtons = findElementByClassName("prev");
 const nextButtons = findElementByClassName("next");
@@ -7,23 +11,14 @@ const maincontainer = querySlecetor("#main-image");
 const breedImageContainer = querySlecetor("#image-conatiner");
 const selectList = querySlecetor("#selectList");
 
-function moveSlides(nextImage) {
-  console.log("nextSlide", nextImage);
-  images[nextImage].classList.add("active");
-  let mainConatinerImage = maincontainer.firstChild;
-  mainConatinerImage.src = images[nextImage].src;
-}
-function showSliderChanges(updateCurrentIndex = 0) {
-  console.log("previous value", updateCurrentIndex);
+// slider buttons Functionality
+function showSliderChanges(updateCurrentIndex = currentIndeValue) {
   let currentIndex = updateCurrentIndex;
-
+  // previous button functionality
   for (let prevBtn of previousButtons) {
     prevBtn.addEventListener("click", function onClick() {
-      for (let image of images) {
-        image.classList.remove("active");
-      }
+      removeActiveClass(images);
       let slideCount = images.length - 1;
-      console.log("prev currentindexx", currentIndex);
       images[currentIndex].classList.remove("active");
       let nextImage;
 
@@ -37,11 +32,10 @@ function showSliderChanges(updateCurrentIndex = 0) {
       currentIndex = nextImage;
     });
   }
+  // next button functionality
   for (let nextBtn of nextButtons) {
     nextBtn.addEventListener("click", function onClick() {
-      for (let image of images) {
-        image.classList.remove("active");
-      }
+      removeActiveClass(images);
       let slideCount = images.length - 1;
       images[currentIndex].classList.remove("active");
       let nextImage;
@@ -50,13 +44,24 @@ function showSliderChanges(updateCurrentIndex = 0) {
       } else {
         nextImage = currentIndex + 1;
       }
-
       moveSlides(nextImage);
       currentIndex = nextImage;
     });
   }
 }
-
+// remove active class
+function removeActiveClass(dogImages) {
+  for (let image of dogImages) {
+    image.classList.remove("active");
+  }
+}
+// toggle slides functionality
+function moveSlides(nextImage) {
+  images[nextImage].classList.add("active");
+  let mainConatinerImage = maincontainer.firstChild;
+  mainConatinerImage.src = images[nextImage].src;
+}
+// drop down functionality
 function showDropDown() {
   const customSelectBtn = document.getElementsByClassName("selectCustom")[0];
   const customSelectDefaultValue = customSelectBtn.children[0];
@@ -67,7 +72,6 @@ function showDropDown() {
     Array.from(customSelectOptions.children).forEach(function (option) {
       option.addEventListener("click", (e) => {
         customSelectDefaultValue.textContent = e.target.textContent;
-
         customSelectBtn.classList.remove("isActive");
       });
     });
@@ -81,6 +85,7 @@ function showDropDown() {
     }
   });
 }
+
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
@@ -104,4 +109,5 @@ export {
   maincontainer,
   breedImageContainer,
   selectList,
+  removeActiveClass,
 };

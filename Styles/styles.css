@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
 }
-.container {
+.gallery-conatiner {
   padding: 2rem 0.5rem;
 }
 .main-conatiner {
@@ -23,7 +23,7 @@
 .main-image img {
   border-radius: 2rem;
 }
-.image {
+.gallery-image-conatiner {
   width: 50%;
   display: flex;
   justify-content: space-between;
@@ -37,26 +37,22 @@
 img {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 /* previous and next arrow */
-.prev {
-  background-color: var(--light-grey-color);
-  color: black;
-}
-
-.next {
-  background-color: var(--dark-blue-color);
-  color: white;
-}
+.prev,
 .disabled {
   background-color: var(--light-grey-color);
   color: black;
 }
+
+.next,
 .enabled {
   background-color: var(--dark-blue-color);
   color: white;
 }
+
 .btn {
   border: none;
   outline: none;

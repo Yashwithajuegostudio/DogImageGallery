@@ -7,11 +7,13 @@ import {
   showSliderChanges,
   maincontainer,
   breedImageContainer,
+  removeActiveClass,
 } from "./helper";
-import { dogBreedNameUrl } from "./constants";
+import { dogBreedNameUrl, dogBreedImageUrl } from "./constants";
 getApiCall(dogBreedNameUrl, displayBreedName);
 let previousIndex = 0;
 
+// call API to fetch Select list data
 function displayBreedName(data) {
   const breedNameArray = Object.keys(data.message).filter(
     (key) => key.length > 0
@@ -22,17 +24,18 @@ function displayBreedName(data) {
 showDropDown();
 // slider changes
 showSliderChanges();
-// display Image data
+// call API to fetch Image data
 function getBreedImageApiData(breedName) {
-  const dogBreedImageUrl = `https://dog.ceo/api/breed/${breedName}/images`;
-  getApiCall(dogBreedImageUrl, displayImageData);
+  getApiCall(
+    dogBreedImageUrl.replace(`breed/`, `breed/${breedName}/`),
+    displayImageData
+  );
 }
-
+// display breed name in select option list
 function displayImageData(data) {
   const breedImageArray = Object.values(data.message).filter(
     (value) => value.length > 0
   );
-
   if (!maincontainer.hasChildNodes()) {
     const mainImage = document.createElement("img");
     mainImage.src = breedImageArray[0];
@@ -63,11 +66,10 @@ function displayImageData(data) {
     breedImageContainer.append(...nodes);
   }
 }
+// Add active class for the Clicked image
 function activateImageConatiner(imageCurrentIndex, e) {
   if (imageCurrentIndex !== previousIndex) {
-    for (let image of images) {
-      image.classList.remove("active");
-    }
+    removeActiveClass(images);
     images[previousIndex].classList.remove("active");
     previousIndex = imageCurrentIndex;
     e.target.classList.add("active");
@@ -75,14 +77,11 @@ function activateImageConatiner(imageCurrentIndex, e) {
     mainConatinerImage.src = images[previousIndex].src;
     return previousIndex;
   } else {
-    for (let image of images) {
-      image.classList.remove("active");
-    }
-
+    removeActiveClass(images);
     return previousIndex;
   }
 }
-
+// display dropdown select list
 function showDropDownData(dogBreedNameList) {
   const nodes = dogBreedNameList.map((dogBreedNameList) => {
     const option = document.createElement("option");

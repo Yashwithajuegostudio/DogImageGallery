@@ -1,8 +1,13 @@
-function getApiCall(getUrl, getData) {
-  fetch(getUrl, {
+async function getApiCall(getUrl, getData) {
+  await fetch(getUrl, {
     method: "GET",
   })
-    .then((res) => res.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Request failed with the status ${response.status}`);
+      }
+      return response.json();
+    })
     .then((data) => getData(data))
     .catch((error) => console.error(error));
 }
