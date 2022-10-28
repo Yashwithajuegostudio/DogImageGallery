@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./Styles/styles.css" />
+
+    <title>Image gallery</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="select">
+        <div class="selectWrapper">
+          <div class="selectCustom">
+            <div class="selectCustom-trigger">Please select a Breed ...</div>
+            <div class="selectCustom-options" id="selectList"></div>
+          </div>
+        </div>
+      </div>
+      <div class="main-conatiner">
+        <button class="prev btn">&#8249;</button>
+        <div class="main-image" id="main-image"></div>
+        <button class="next btn">&#8250;</button>
+      </div>
+
+      <div class="main-conatiner image-row">
+        <button class="prev btn">&#8249;</button>
+        <div class="image">
+          <div class="slide" id="image-conatiner"></div>
+        </div>
+        <button class="next btn">&#8250;</button>
+      </div>
+    </div>
+    <script src="js/displayData.js" type="module"></script>
+  </body>
+</html>
